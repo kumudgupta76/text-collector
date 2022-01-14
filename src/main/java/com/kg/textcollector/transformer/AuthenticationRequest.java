@@ -1,4 +1,4 @@
-package com.kg.textcollector.temp;
+package com.kg.textcollector.transformer;
 
 import java.io.Serializable;
 
@@ -9,8 +9,8 @@ public class AuthenticationRequest implements Serializable {
     public AuthenticationRequest() {
     }
 
-    public AuthenticationRequest(String userName, String passWord) {
-        this.username = userName;
+    public AuthenticationRequest(String username, String passWord) {
+        this.username = username;
         this.password = passWord;
     }
 

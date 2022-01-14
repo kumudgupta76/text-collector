@@ -4,16 +4,19 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserDetail implements  UserDetails{
-    private String userName;
+public class UserDetail implements  UserDetails, Serializable {
+    private int id;
+    private String username;
     private String email;
     private String password;
     private boolean isActive;
+    private String token;
 
     public boolean isActive() {
         return isActive;
@@ -33,7 +36,7 @@ public class UserDetail implements  UserDetails{
     }
 
     public UserDetail(User user) {
-        this.userName = user.getUserName();
+        this.username = user.getUsername();
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.isActive = user.isActive();
@@ -42,12 +45,8 @@ public class UserDetail implements  UserDetails{
                 .collect(Collectors.toList());
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -60,7 +59,7 @@ public class UserDetail implements  UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     public String getPassword() {
@@ -69,7 +68,7 @@ public class UserDetail implements  UserDetails{
 
     @Override
     public String getUsername() {
-        return userName;
+        return username;
     }
 
     @Override
@@ -94,5 +93,21 @@ public class UserDetail implements  UserDetails{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
