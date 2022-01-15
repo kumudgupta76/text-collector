@@ -4,17 +4,17 @@ import com.kg.textcollector.model.UserDetail;
 
 import java.io.Serializable;
 
-public class User{
+public class UserTranformer {
     private int id;
     private String username;
     private String name;
     private String email;
     private String token;
 
-    public User() {
+    public UserTranformer() {
     }
 
-    public User(UserDetail userDetail) {
+    public UserTranformer(UserDetail userDetail) {
         this.id = userDetail.getId();
         this.username = userDetail.getUsername();
         this.name = userDetail.getUsername();
@@ -22,7 +22,7 @@ public class User{
         this.token = userDetail.getToken();
     }
 
-    public User(int id, String  username, String name, String email, String token) {
+    public UserTranformer(int id, String  username, String name, String email, String token) {
         this.id = id;
         this.username = username;
         this.name = name;
