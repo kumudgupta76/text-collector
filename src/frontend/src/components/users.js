@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {getUsers} from '../store/actions/usersAction'
 
- class users extends Component {
+ class Users extends Component {
     componentDidMount(){
         this.props.getUsers()
         
@@ -26,4 +26,4 @@ import {getUsers} from '../store/actions/usersAction'
 
 const mapStateToProps  = (state) => ({users:state.users})
 
-export default connect(mapStateToProps, {getUsers})(users)
+export default connect(mapStateToProps, {getUsers})(Users)
