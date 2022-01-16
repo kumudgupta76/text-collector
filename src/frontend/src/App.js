@@ -3,20 +3,23 @@ import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import Login from "./components/login";
-import SignUp from "./components/signup";
+import Login from "./components/auth/login";
+import SignUp from "./components/auth/signup";
 import User from "./components/user";
 import requireAuth from "./util/requireAuth";
 import RequireAuth from "./util/requireAuth";
+import MyEditor from "./components/note/MyEditor"
 
 
 // import "./components/alert/styles.scss";
 import alertHoc from "./util/alert/alertHoc";
 import loaderHoc from "./util/loader/loaderHoc";
+import Note from "./components/note/Note";
+import Notes from "./components/note/Notes";
 
 const Error404 = () => {
   return (
-    <div className="auth-wrapper">
+    <div className="container-wrapper">
       <div>
         <h1>404 page not exists</h1>
       </div>
@@ -69,6 +72,9 @@ function App() {
           )}
         />
         <Route path="/test" element={<AppWithAlert/> }/>
+        <Route path="/edit" element={<MyEditor></MyEditor>}/>
+        <Route path="/notes/:id" element={<Note></Note>}/>
+        <Route path="/notes" element={<Notes></Notes>}/>
       </Routes>
     </div>
   );

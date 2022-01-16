@@ -14,3 +14,8 @@ export const USERS_ERROR = 'USERS_ERROR';
 
 export const START_LOADING = 'START_LOADING';
 export const STOP_LOADING = 'STOP_LOADING';
+
+export const GET_NOTE = 'GET_NOTE';
+export const GET_ALL_NOTE = 'GET_ALL_NOTE';
+export const CREATE_NOTE = 'CREATE_NOTE';
+export const UPDATE_NOTE = 'UPDATE_NOTE';
