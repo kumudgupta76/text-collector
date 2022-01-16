@@ -2,8 +2,7 @@ import * as React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
-import Header from "./header";
-import { signup } from "../store/actions/auth";
+import { signup } from "../../store/actions/auth";
 
 const SignUp = () => {
   const dispatch = useDispatch();
@@ -36,8 +35,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className="auth-wrapper">
-      <div className="auth-inner">
+    <div className="container-wrapper">
+      <div className="container-inner">
         <form>
           <h3>Sign In</h3>
 

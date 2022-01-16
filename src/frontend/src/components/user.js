@@ -19,7 +19,7 @@ const User = () => {
   return (
     <div className="auth-wrapper">
       <div
-        className="auth-inner"
+        className="container-inner"
         style={{
           wordBreak: "break-word",
         }}
