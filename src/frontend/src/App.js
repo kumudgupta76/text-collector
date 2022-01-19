@@ -9,6 +9,7 @@ import User from "./components/user";
 import requireAuth from "./util/requireAuth";
 import RequireAuth from "./util/requireAuth";
 import MyEditor from "./components/note/MyEditor"
+import TestEditor from "./components/note/TestEditor"
 
 
 // import "./components/alert/styles.scss";
@@ -75,6 +76,7 @@ function App() {
         <Route path="/edit" element={<MyEditor></MyEditor>}/>
         <Route path="/notes/:id" element={<Note></Note>}/>
         <Route path="/notes" element={<Notes></Notes>}/>
+        <Route path="/testeditor" element={<TestEditor/>}/>
       </Routes>
     </div>
   );

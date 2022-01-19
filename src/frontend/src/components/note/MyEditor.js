@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
@@ -15,35 +15,29 @@ function MyEditor() {
 
   const [summary, summaryComp] = useInput({ type: "text" });
 
-  const [editorState, setEditorState] = React.useState(() =>
+  const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
 
+
+  useEffect(() => {
+    console.log("Local state changed my editor", JSON.stringify(convertToRaw(editorState.getCurrentContent())));
+},[editorState])
+
   const handleOnclick = () => {
     const s = editorState.getCurrentContent();
-    console.log(convertToRaw(s));
+    console.log("summiting data",JSON.stringify(convertToRaw(s)));
+    
 
     let data = {
       summary: summary,
-      data: JSON.stringify(s),
+      data: JSON.stringify(convertToRaw(s)),
     };
     dispatch(createNote(data)).then((res) => {
       console.log("Component respnisne", res);
     });
   };
 
-  const getEditorState = (state) => {
-      
-    // if(state && state.note ) {
-    //     let jsonState = JSON.parse(JSON.stringify(state.note))
-    //     return EditorState.createWithContent(convertFromRaw(jsonState));
-    // }
-
-    // return EditorState.createEmpty();
-
-    let s = JSON.stringify(state.getCurrentContent());
-    return EditorState.createWithContent(convertFromRaw(JSON.parse(s)));
-  }
   return (
     <div className="container-wrapper">
       <div className="container-inner">
@@ -57,7 +51,6 @@ function MyEditor() {
         <RichEditorExample
           editorState={editorState}
           setEditorState={setEditorState}
-          readOnly={true}
         />
 
         {/* <RichEditorExample
