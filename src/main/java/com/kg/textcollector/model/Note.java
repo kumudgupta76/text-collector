@@ -1,15 +1,10 @@
 package com.kg.textcollector.model;
 
-import com.kg.textcollector.util.JsonToMapConverter;
-import org.springframework.data.annotation.Reference;
-
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
-import java.util.HashMap;
-import java.util.Map;
 
 @Entity
-public class Note {
+@Table(name = "notes")
+public class Note extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,7 +15,7 @@ public class Note {
     @Column(columnDefinition = "json")
     private String data;
 
-    private int user_id;
+    private int userId;
 
     public int getId() {
         return id;
@@ -46,11 +41,11 @@ public class Note {
         this.data = data;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

@@ -22,7 +22,7 @@ public class NoteController {
     public @ResponseBody Note save(@RequestBody Note note) {
         Optional<UserDetail> user = Auth.getCurrentUserLogin();
         if(user.isPresent()) {
-            note.setUser_id(user.get().getId());
+            note.setUserId(user.get().getId());
         }
         return noteService.save(note);
     }
