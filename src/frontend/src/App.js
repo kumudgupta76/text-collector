@@ -1,11 +1,12 @@
 import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "antd/dist/antd.css";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Login from "./components/auth/login";
 import SignUp from "./components/auth/signup";
-import User from "./components/user";
+import User from "./components/User";
 import requireAuth from "./util/requireAuth";
 import RequireAuth from "./util/requireAuth";
 import MyEditor from "./components/note/MyEditor"
@@ -17,6 +18,8 @@ import alertHoc from "./util/alert/alertHoc";
 import loaderHoc from "./util/loader/loaderHoc";
 import Note from "./components/note/Note";
 import Notes from "./components/note/Notes";
+import Header from "./components/Header";
+import Layout, { Footer } from "antd/lib/layout/layout";
 
 const Error404 = () => {
   return (
@@ -58,7 +61,9 @@ const AppWithAlert = alertHoc(SampleApp);
 
 function App() {
   return (
-    <div className="App">
+    <>
+      <Header className="header"></Header>
+      <div className="content">
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/login" element={<Login />} />
@@ -78,7 +83,9 @@ function App() {
         <Route path="/notes" element={<Notes></Notes>}/>
         <Route path="/testeditor" element={<TestEditor/>}/>
       </Routes>
-    </div>
+      </div>
+      <div className="footer">Copyright reserved @2022</div>
+  </>
   );
 }
 

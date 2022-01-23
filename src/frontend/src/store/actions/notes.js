@@ -9,6 +9,7 @@ export const getNoteDetails = (id) => (dispatch) => {
       payload: res.data,
     });
     dispatch({ type: STOP_LOADING });
+    return res.data;
   });
 };
 
