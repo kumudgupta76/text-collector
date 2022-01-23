@@ -16,28 +16,27 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public abstract class Auditable {
 
     @CreatedDate
-    @Column(columnDefinition = "timestamp default '2020-04-10 20:47:05.967394'", updatable = false)
-    protected LocalDateTime createdDate;
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", updatable = false, nullable = false)
+    protected LocalDateTime createdAt;
 
 
     @LastModifiedDate
-    @Column(columnDefinition = "timestamp default '2020-04-10 20:47:05.967394'")
-    protected LocalDateTime lastModifiedDate;
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP", nullable = false)
+    protected LocalDateTime updateAt;
 
-
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public LocalDateTime getLastModifiedDate() {
-        return lastModifiedDate;
+    public LocalDateTime getUpdateAt() {
+        return updateAt;
     }
 
-    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
+    public void setUpdateAt(LocalDateTime updateAt) {
+        this.updateAt = updateAt;
     }
 }
