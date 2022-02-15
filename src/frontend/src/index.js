@@ -7,6 +7,10 @@ import store from './store/store'
 import {Provider} from 'react-redux';
 import * as serviceWorker from "./serviceWorker";
 
+import {interceptor} from './util/axios'
+
+interceptor(store);
+
 ReactDOM.render(
     <BrowserRouter>
         <React.StrictMode>

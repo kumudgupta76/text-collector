@@ -1,19 +1,17 @@
-import axios from "axios";
+import axios from "../util/axios";
 import authHeader from "./auth-header";
-
-const API_URL = "http://localhost:8080/";
 
 class UserService {
   getAllUsers() {
-    return axios.get(`${API_URL}users`, { headers: authHeader() });
+    return axios.get(`users`, { headers: authHeader() });
   }
 
   getUserDetails(id) {
-    return axios.get(`${API_URL}user/${id}`, { headers: authHeader() });
+    return axios.get(`user/${id}`, { headers: authHeader() });
   }
 
   getUserDetailsByEmailOrUsername(str) {
-    return axios.get(`${API_URL}user?usernameOrEmail=${str}`, { headers: authHeader() });
+    return axios.get(`user?usernameOrEmail=${str}`, { headers: authHeader() });
   }
 
 }
