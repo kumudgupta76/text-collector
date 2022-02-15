@@ -31,6 +31,7 @@ body, html, .App, #root, .container-wrapper {
   justify-content: center;
   flex-direction: column;
   text-align: left;
+  margin-top: 75px;
 }
 
 .container-inner {

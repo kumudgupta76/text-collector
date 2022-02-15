@@ -25,7 +25,7 @@ const Login = () => {
       dispatch(login(data.username, data.password)).then((res) => {
         console.log("response of login ",res);
         navigate(
-          state != null && state.path != null ? state.path : "/users"
+          state != null && state.path != null ? state.path : "/user"
         );
       });
     }

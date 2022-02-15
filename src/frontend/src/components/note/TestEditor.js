@@ -1,12 +1,56 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Editor, EditorState} from 'draft-js';
-import 'draft-js/dist/Draft.css';
+import React from "react";
+import { Layout, Menu, Breadcrumb } from 'antd';
 
-export default function MyEditor({editorState, setEditorState}) {
+const { Header, Content, Footer } = Layout;
+// import "./styles.css";
+
+const content = {
+  entityMap: {},
+  blocks: [
+    {
+      key: "637gr",
+      text: "Initialized from content state.",
+      type: "unstyled",
+      depth: 0,
+      inlineStyleRanges: [],
+      entityRanges: [],
+      data: {}
+    }
+  ]
+};
+
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   
 
-  return <Editor editorState={editorState} onChange={setEditorState} />;
+  render() {
+    return (
+      <Layout className="layout">
+    <Header>
+      <div className="logo" />
+      <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
+        {new Array(15).fill(null).map((_, index) => {
+          const key = index + 1;
+          return <Menu.Item key={key}>{`nav ${key}`}</Menu.Item>;
+        })}
+      </Menu>
+    </Header>
+    <Content style={{ padding: '0 50px' }}>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>List</Breadcrumb.Item>
+        <Breadcrumb.Item>App</Breadcrumb.Item>
+      </Breadcrumb>
+      <div className="site-layout-content">Content</div>
+    </Content>
+    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+  </Layout>
+    );
+  }
 }
 
-// ReactDOM.render(<MyEditor />, document.getElementById('container'));
+
+

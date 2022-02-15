@@ -2,7 +2,7 @@ import React from 'react';
 import {Editor, EditorState, RichUtils} from 'draft-js';
 import "./style.css";
 
-export default class RichEditorExample extends React.Component {
+export default class RichEditor extends React.Component {
   constructor(props) {
     super(props);
     // this.state = {editorState: EditorState.createEmpty()};
@@ -16,6 +16,9 @@ export default class RichEditorExample extends React.Component {
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
   }
 
+  componentDidMount(){
+      console.log("Editor mounted", this.props);
+  }
   _handleKeyCommand(command) {
     const {editorState} = this.props;
     const newState = RichUtils.handleKeyCommand(editorState, command);
@@ -50,7 +53,7 @@ export default class RichEditorExample extends React.Component {
   }
 
   render() {
-    const {editorState} = this.props;
+    const {editorState, isEdit} = this.props;
 
     // If the user changes block type before entering any text, we can
     // either style the placeholder or hide it. Let's just hide it now.
@@ -64,14 +67,15 @@ export default class RichEditorExample extends React.Component {
 
     return (
       <div className="RichEditor-root">
+          {isEdit &&
         <BlockStyleControls
           editorState={editorState}
           onToggle={this.toggleBlockType}
-        />
-        <InlineStyleControls
+        />}
+        {isEdit && <InlineStyleControls
           editorState={editorState}
           onToggle={this.toggleInlineStyle}
-        />
+        />}
         <div className={className} onClick={this.focus}>
           <Editor
             blockStyleFn={getBlockStyle}
@@ -83,6 +87,7 @@ export default class RichEditorExample extends React.Component {
             placeholder="Tell a story..."
             ref="editor"
             spellCheck={true}
+            readOnly={isEdit}
           />
         </div>
       </div>
@@ -189,8 +194,3 @@ const InlineStyleControls = (props) => {
     </div>
   );
 };
-
-// ReactDOM.render(
-//   <RichEditorExample />,
-//   document.getElementById('target')
-// );

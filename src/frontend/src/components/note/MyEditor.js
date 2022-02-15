@@ -6,7 +6,7 @@ import { convertFromRaw, convertToRaw, EditorState } from "draft-js";
 import "draft-js/dist/Draft.css";
 import RichEditorExample from "./Editor";
 import TestEditor from "./TestEditor";
-import { createNote, getNoteDetails } from "../../store/actions/note";
+import { createNote, getNoteDetails } from "../../store/actions/notes";
 import { useInput } from "../../util/common";
 
 function MyEditor() {
