@@ -1,5 +1,6 @@
 package com.kg.textcollector.controller;
 
+import com.kg.textcollector.exceptions.NotFoundException;
 import com.kg.textcollector.model.Note;
 import com.kg.textcollector.model.UserDetail;
 import com.kg.textcollector.service.NoteService;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping(path = "/note")
+@RequestMapping(path = "/notes")
 public class NoteController {
 
     @Autowired
@@ -30,6 +31,9 @@ public class NoteController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<?> get(@PathVariable Integer id) {
         Note note = noteService.getById(id);
+        if(note == null) {
+            throw new NotFoundException("Note not found with id : "+ id);
+        }
         return ResponseEntity.ok(note.getData());
     }
 }
