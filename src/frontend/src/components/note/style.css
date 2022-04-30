@@ -6,6 +6,12 @@
     padding: 15px;
   }
   
+  .RichEditor-editor-disable {
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
   .RichEditor-editor {
     border-top: 1px solid #ddd;
     cursor: text;

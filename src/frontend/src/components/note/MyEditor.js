@@ -39,8 +39,7 @@ function MyEditor() {
   };
 
   return (
-    <div className="container-wrapper">
-      <div className="container-inner">
+    <>
         <div style={{ width: "500px" }}>
           {/* <TestEditor editorState={editorState} setEditorState={setEditorState}/> */}
           <button type="button" onClick={handleOnclick}>
@@ -58,8 +57,7 @@ function MyEditor() {
           setEditorState={setEditorState}
           readOnly={false}
         /> */}
-      </div>
-    </div>
+      </>
   );
 }
 

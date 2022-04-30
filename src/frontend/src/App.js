@@ -19,7 +19,8 @@ import loaderHoc from "./util/loader/loaderHoc";
 import Note from "./components/note/Note";
 import Notes from "./components/note/Notes";
 import Header from "./components/Header";
-import Layout, { Footer } from "antd/lib/layout/layout";
+import Layout, { Content, Footer } from "antd/lib/layout/layout";
+import { Breadcrumb, Row } from "antd";
 
 const Error404 = () => {
   return (
@@ -63,7 +64,13 @@ function App() {
   return (
     <>
       <Header className="header"></Header>
-      <div className="content">
+      <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
+      <Breadcrumb style={{ margin: '16px 0' }}>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+        <Breadcrumb.Item>List</Breadcrumb.Item>
+        <Breadcrumb.Item>App</Breadcrumb.Item>
+      </Breadcrumb>
+      <div className="container-inner" style={{ padding: 24, minHeight: 380 }}>
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/login" element={<Login />} />
@@ -84,6 +91,7 @@ function App() {
         <Route path="/testeditor" element={<TestEditor/>}/>
       </Routes>
       </div>
+    </Content>
       <div className="footer">Copyright reserved @2022</div>
   </>
   );

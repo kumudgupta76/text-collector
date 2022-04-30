@@ -21,6 +21,7 @@ export const getNotes = () => (dispatch) => {
       payload: res.data,
     });
     dispatch({ type: STOP_LOADING });
+    return res.data;
   });
 };
 

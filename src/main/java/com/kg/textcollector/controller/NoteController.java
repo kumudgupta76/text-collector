@@ -36,4 +36,9 @@ public class NoteController {
         }
         return ResponseEntity.ok(note.getData());
     }
+
+    @GetMapping(path = "")
+    public ResponseEntity<?> all() {
+        return ResponseEntity.ok(noteService.all());
+    }
 }

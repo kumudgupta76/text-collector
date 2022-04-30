@@ -3,10 +3,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
 import { login } from "../../store/actions/auth";
+import { get } from "lodash";
 
 const Login = () => {
   const dispatch = useDispatch();
   const localState = useSelector((state) => state);
+
+  
 
   const [data, setData] = React.useState({
     username: "",
@@ -20,6 +23,11 @@ const Login = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
 
+  React.useEffect(() => {
+    if(get(localState, 'auth.isLoggedIn')) {
+      navigate('/notes');
+    }
+  },[]);
   const handleLogin = () => {
     if (data.username && data.password) {
       dispatch(login(data.username, data.password)).then((res) => {

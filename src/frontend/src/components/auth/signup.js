@@ -28,7 +28,7 @@ const SignUp = () => {
       dispatch(signup(data )).then((res) => {
         console.log("response of login ",res);
         navigate(
-          state != null && state.path != null ? state.path : "/dashboard"
+          state != null && state.path != null ? state.path : "/user"
         );
       });
     }
