@@ -1,13 +1,145 @@
+@import url("https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800");
+
+* {
+  box-sizing: border-box;
+}
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: white;
+  min-height: 100vh;
+  display: flex;
+  font-weight: 400;
+  font-family: "Fira Sans", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label,
+span {
+  font-weight: 500;
+  font-family: "Fira Sans", sans-serif;
+}
+
+body,
+html,
+.App,
+#root,
+.container-wrapper {
+  width: 100%;
+  /* height: 100%; */
+}
+
+.navbar-light {
+  background-color: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+}
+
+.container-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: left;
+  margin-top: 75px;
+}
+
+.container-inner {
+  /* width: 450px; */
+  margin: auto;
+  background: #ffffff;
+  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  padding: 40px 55px 45px 55px;
+  border-radius: 15px;
+  transition: all 0.3s;
+}
+
+.container-wrapper .form-control:focus {
+  border-color: #167bff;
+  box-shadow: none;
+}
+
+.container-wrapper h3 {
+  text-align: center;
+  margin: 0;
+  line-height: 1;
+  padding-bottom: 20px;
+}
+
+.custom-control-label {
+  font-weight: 400;
+}
+
+.forgot-password,
+.forgot-password a {
+  text-align: right;
+  font-size: 13px;
+  padding-top: 10px;
+  color: #7f7d7d;
+  margin: 0;
+}
+
+.forgot-password a {
+  color: #167bff;
+}
+
+.site-layout-background {
+  padding: 24;
+  margin: 0;
+  /* min-height: 680; */
+  background-color: white;
+}
+.main-content {
+  background-color: #f0f2f5;
+  margin: 20px;
+  border-radius: 5px;
+  min-height: 450px;
+}
+.container {
+  background-color: white;
+  padding: 15px;
+  border-radius: 5px;
+}
+.footer {
+  padding: 24px 50px;
+  color: rgba(0, 0, 0, 0.85);
+  font-size: 14px;
+  background: #001529;
+  color: white;
+}
+
+body {
+  margin: 0px;
+  line-height: 40px;
+  font-weight: 400;
+  font-family: "Fira Sans", sans-serif;
+}
+.header {
+  height: 46px;
+  background: #222;
+  color: white;
+  width: 100%;
+}
+.content {
+  min-height: calc(100vh - 80px);
+}
+.footer {
+  background: #001529;
+  color: white;
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 34px;
+}
+.ant-btn-primary {
+  border-color: #1D7CBF!important;
+  background: #1D7CBF!important;
+}
+
+.ant-btn:hover {
+  border-color: #1D7CBF!important;
+  background: #1D7CBF!important;
 }

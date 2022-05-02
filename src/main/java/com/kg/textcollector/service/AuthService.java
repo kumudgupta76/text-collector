@@ -43,9 +43,11 @@ public class AuthService {
         return userDetail;
     }
 
-    public Object signup(User user) {
+    public UserDetail signup(User user) {
+        String password = user.getPassword();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         UserDetail userDetail = userService.save(user);
-        return login(userDetail.getUsername(), userDetail.getPassword());
+        return login(user.getUsername(), password);
     }
 }
