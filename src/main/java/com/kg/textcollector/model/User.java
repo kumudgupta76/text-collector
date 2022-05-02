@@ -1,6 +1,8 @@
 package com.kg.textcollector.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "users")
@@ -11,15 +13,21 @@ public class User {
 
     private String name;
 
+    @NotBlank
+    @Email
+    @Column(unique = true)
     private String email;
 
-    private String userName;
+    @NotBlank
+    @Column(unique = true)
+    private String username;
 
+    @NotBlank
     private String password;
 
-    private Boolean active;
+    private Boolean active = true;
 
-    private String role;
+    private String role= "USER";
 
     public Integer getId() {
         return id;
@@ -45,12 +53,12 @@ public class User {
         this.email = email;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {

@@ -1,4 +1,4 @@
-package com.kg.textcollector.temp;
+package com.kg.textcollector.transformer;
 
 public class AuthenticationResponse {
     private String token;

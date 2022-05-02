@@ -10,5 +10,9 @@ import java.util.Optional;
 // CRUD refers Create, Read, Update, Delete
 
 public interface UserRepository extends JpaRepository<User, Integer> {
-    Optional<User> findByUserName(String userName);
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findByEmail(String email);
+
+    Optional<User> findByUsernameOrEmail(String username, String email);
 }
