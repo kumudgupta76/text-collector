@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface NoteRepository extends JpaRepository<Note, Integer> {
-    List<Note> findByUserId(int id);
+    List<Note> findByUserIdOrderByCreatedAtDesc(int id);
 
     Optional<Note> findByIdAndUserId(Integer id, int id1);
 }

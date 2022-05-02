@@ -1,3 +1,4 @@
+import { notification } from "antd";
 import React from "react";
 
 import {useState} from 'react'
@@ -19,3 +20,10 @@ export function useInput({ type /*...*/ }) {
     const input = <input value={value} onChange={e => setValue(e.target.value)} type={type} />;
     return [value, input];
   }
+
+export function message(message) {
+    notification[message.type]({
+        message:message.title,
+        description:message.description
+    });
+}

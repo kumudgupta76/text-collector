@@ -37,7 +37,7 @@ public class NoteService {
     public List<Note> all() {
         Optional<UserDetail> user = Auth.getCurrentUserLogin();
         if(user.isPresent()) {
-            return noteRepository.findByUserId(user.get().getId());
+            return noteRepository.findByUserIdOrderByCreatedAtDesc(user.get().getId());
         }
         return new ArrayList<>();
     }

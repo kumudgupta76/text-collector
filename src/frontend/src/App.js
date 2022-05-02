@@ -20,7 +20,8 @@ import Note from "./components/note/Note";
 import Notes from "./components/note/Notes";
 import Header from "./components/Header";
 import Layout, { Content, Footer } from "antd/lib/layout/layout";
-import { Breadcrumb, Row } from "antd";
+import GlobalShared from "./util/globalShared";
+
 
 const Error404 = () => {
   return (
@@ -62,15 +63,10 @@ const AppWithAlert = alertHoc(SampleApp);
 
 function App() {
   return (
-    <>
+    <GlobalShared>
       <Header className="header"></Header>
       <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
-      <Breadcrumb style={{ margin: '16px 0' }}>
-        <Breadcrumb.Item>Home</Breadcrumb.Item>
-        <Breadcrumb.Item>List</Breadcrumb.Item>
-        <Breadcrumb.Item>App</Breadcrumb.Item>
-      </Breadcrumb>
-      <div className="container-inner" style={{ padding: 24, minHeight: 380 }}>
+      
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route exact path="/login" element={<Login />} />
@@ -85,15 +81,14 @@ function App() {
           )}
         />
         <Route path="/test" element={<AppWithAlert/> }/>
-        <Route path="/edit" element={<MyEditor></MyEditor>}/>
-        <Route path="/notes/:id" element={<Note></Note>}/>
-        <Route path="/notes" element={<Notes></Notes>}/>
+        <Route path="/edit" element={<RequireAuth><MyEditor></MyEditor></RequireAuth>}/>
+        <Route path="/notes/:id" element={<RequireAuth><Note/></RequireAuth>}/>
+        <Route path="/notes" element={<RequireAuth><Notes></Notes></RequireAuth>}/>
         <Route path="/testeditor" element={<TestEditor/>}/>
       </Routes>
-      </div>
     </Content>
       <div className="footer">Copyright reserved @2022</div>
-  </>
+  </GlobalShared>
   );
 }
 

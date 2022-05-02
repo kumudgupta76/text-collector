@@ -58,4 +58,8 @@ public class UserService implements UserDetailsService {
     public UserDetail find(Integer id) {
         return new UserDetail(userRepository.getById(id));
     }
+
+    public UserDetail update(User user) {
+        return new UserDetail(userRepository.save(user));
+    }
 }

@@ -1,15 +1,13 @@
 package com.kg.textcollector.controller;
 
+import com.kg.textcollector.model.User;
 import com.kg.textcollector.model.UserDetail;
 import com.kg.textcollector.service.UserService;
 import com.kg.textcollector.transformer.UserTranformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,5 +40,10 @@ public class UserController {
     public @ResponseBody
     UserTranformer find(@PathVariable Integer id) {
         return new UserTranformer(userService.find(id));
+    }
+
+    @PatchMapping(path = "/user")
+    UserTranformer updateUser(@RequestBody User user) {
+        return new UserTranformer(userService.update(user));
     }
 }
