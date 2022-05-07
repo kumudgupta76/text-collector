@@ -1,5 +1,7 @@
 
 import axios from 'axios';
+import _ from 'lodash';
+import { useNavigate } from 'react-router-dom';
 import { SET_MESSAGE, START_LOADING, STOP_LOADING } from '../store/actions/types';
 import { message } from './common';
 
@@ -7,7 +9,9 @@ const AxiosInstance = axios.create({
     baseURL: 'http://localhost:8080/'
 })
 
+// const navigate = useNavigate();
 export const interceptor = (store) => {
+    
     AxiosInstance.interceptors.request.use(
         (conf) => {
             store.dispatch({
@@ -42,6 +46,15 @@ export const interceptor = (store) => {
             store.dispatch({
                 type: STOP_LOADING
             })
+            switch (_.get(error, "response.status")) {
+                case 404:
+                    // navigate("/404");
+                    break;
+                case 500:
+                    // navigate("/505");
+                default:
+                    break;
+            }
             return Promise.reject(error);
         }
     );

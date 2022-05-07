@@ -13,7 +13,7 @@ import java.io.StringWriter;
 
 @ControllerAdvice
 class CustomControllerAdvice {
-    @ExceptionHandler(UsernameNotFoundException.class)
+    @ExceptionHandler({UsernameNotFoundException.class,NotFoundException.class})
     public ResponseEntity<ErrorResponse> handleCustomDataNotFoundExceptions(
             Exception e
     ) {

@@ -63,7 +63,7 @@ const AppWithAlert = alertHoc(SampleApp);
 
 function App() {
   return (
-    <GlobalShared>
+    <>
       <Header className="header"></Header>
       <Content className="site-layout" style={{ padding: '0 50px', marginTop: 64 }}>
       
@@ -88,7 +88,7 @@ function App() {
       </Routes>
     </Content>
       <div className="footer">Copyright reserved @2022</div>
-  </GlobalShared>
+  </>
   );
 }
 

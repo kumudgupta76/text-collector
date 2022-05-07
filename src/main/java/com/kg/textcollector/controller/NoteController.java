@@ -2,6 +2,7 @@ package com.kg.textcollector.controller;
 
 import com.kg.textcollector.exceptions.NotFoundException;
 import com.kg.textcollector.model.Note;
+import com.kg.textcollector.model.User;
 import com.kg.textcollector.model.UserDetail;
 import com.kg.textcollector.service.NoteService;
 import com.kg.textcollector.util.Auth;
@@ -23,7 +24,7 @@ public class NoteController {
     public @ResponseBody Note save(@RequestBody Note note) {
         Optional<UserDetail> user = Auth.getCurrentUserLogin();
         if(user.isPresent()) {
-            note.setUserId(user.get().getId());
+            note.setUser(new User(user.get()));
         }
         return noteService.save(note);
     }
@@ -34,7 +35,7 @@ public class NoteController {
         if(note == null) {
             throw new NotFoundException("Note not found with id : "+ id);
         }
-        return ResponseEntity.ok(note.getData());
+        return ResponseEntity.ok(note);
     }
 
     @GetMapping(path = "")

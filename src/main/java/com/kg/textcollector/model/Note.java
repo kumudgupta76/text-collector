@@ -1,5 +1,7 @@
 package com.kg.textcollector.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,12 +12,15 @@ public class Note extends Auditable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    private String summary;
+    private String title;
 
-    @Column(columnDefinition = "json")
+    @Column(columnDefinition = "TEXT")
     private String data;
 
-    private int userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private User user;
 
     public int getId() {
         return id;
@@ -25,12 +30,12 @@ public class Note extends Auditable {
         this.id = id;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getTitle() {
+        return title;
     }
 
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setTitle(String summary) {
+        this.title = summary;
     }
 
     public String getData() {
@@ -41,11 +46,11 @@ public class Note extends Auditable {
         this.data = data;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

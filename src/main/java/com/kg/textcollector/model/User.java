@@ -25,7 +25,7 @@ public class User extends Auditable{
     @NotBlank
     private String password;
 
-    private Boolean active = true;
+    private Boolean isActive = true;
 
     private String role= "USER";
 
@@ -70,11 +70,11 @@ public class User extends Auditable{
     }
 
     public boolean isActive() {
-        return active;
+        return isActive;
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        this.isActive = active;
     }
 
     public String getRole() {
@@ -83,5 +83,16 @@ public class User extends Auditable{
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public User() {
+    }
+
+    public User(UserDetail userDetail) {
+        this.id = userDetail.getId();
+        this.username = userDetail.getUsername();
+        this.email = userDetail.getEmail();
+        this.password = userDetail.getPassword();
+        this.isActive = userDetail.isActive();
     }
 }

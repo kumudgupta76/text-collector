@@ -5,7 +5,7 @@ const API_URL = "http://localhost:8080/notes";
 
 class NoteService {
   getAllNote() {
-    return axios.get(`${API_URL}`, { headers: authHeader() });
+    return axios.get(`${API_URL}?query=`, { headers: authHeader() });
   }
 
   getNote(id) {
