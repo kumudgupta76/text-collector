@@ -54,4 +54,8 @@ public class UserService implements UserDetailsService {
     public List<UserDetail> getAll() {
         return userRepository.findAll().stream().map(UserDetail::new).collect(Collectors.toList());
     }
+
+    public UserDetail find(Integer id) {
+        return new UserDetail(userRepository.getById(id));
+    }
 }
