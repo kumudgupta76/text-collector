@@ -5,6 +5,7 @@ import com.kg.textcollector.model.User;
 import com.kg.textcollector.model.UserDetail;
 import com.kg.textcollector.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -29,6 +30,9 @@ public class AuthService {
 
     public UserDetail login(String usernameOrEmail, String password) {
         UserDetail userDetail = userService.getUser(usernameOrEmail);
+        if(userDetail == null) {
+            throw new CustomException(HttpStatus.UNPROCESSABLE_ENTITY,"Username or email not exists.");
+        }
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userDetail.getUsername(), password)

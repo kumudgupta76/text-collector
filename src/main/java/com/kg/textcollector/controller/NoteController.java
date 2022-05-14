@@ -40,6 +40,6 @@ public class NoteController {
 
     @GetMapping(path = "")
     public ResponseEntity<?> all(@RequestParam String query) {
-        return ResponseEntity.ok(noteService.all());
+        return ResponseEntity.ok(noteService.search(query));
     }
 }

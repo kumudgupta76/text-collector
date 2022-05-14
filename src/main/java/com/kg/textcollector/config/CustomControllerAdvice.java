@@ -39,12 +39,20 @@ class CustomControllerAdvice {
     public ResponseEntity<ErrorResponse> handleCustomParameterConstraintExceptions(
             Exception e
     ) {
-        HttpStatus status = HttpStatus.BAD_REQUEST; // 400
+        CustomException CustomException = (CustomException) e;
+
+        HttpStatus status = CustomException.getStatus();
+
+        // converting the stack trace to String
+        StringWriter stringWriter = new StringWriter();
+        PrintWriter printWriter = new PrintWriter(stringWriter);
+        CustomException.printStackTrace(printWriter);
+        String stackTrace = stringWriter.toString();
 
         return new ResponseEntity<>(
                 new ErrorResponse(
                         status,
-                        e.getMessage()
+                        CustomException.getMessage()
                 ),
                 status
         );

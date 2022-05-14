@@ -41,4 +41,12 @@ public class NoteService {
         }
         return new ArrayList<>();
     }
+
+    public List<Note> search(String query) {
+        Optional<UserDetail> user = Auth.getCurrentUserLogin();
+        if(user.isPresent()) {
+            return noteRepository.findByUserIdAndTitleContainingOrDataContainingOrderByCreatedAtDesc(user.get().getId(), query, query);
+        }
+        return new ArrayList<>();
+    }
 }

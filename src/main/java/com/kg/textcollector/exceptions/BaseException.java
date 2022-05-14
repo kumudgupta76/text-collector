@@ -3,7 +3,7 @@ package com.kg.textcollector.exceptions;
 import org.springframework.http.HttpStatus;
 
 public class BaseException extends RuntimeException {
-    private HttpStatus status = null;
+    private HttpStatus status = HttpStatus.BAD_REQUEST;
 
     private Object data = null;
 

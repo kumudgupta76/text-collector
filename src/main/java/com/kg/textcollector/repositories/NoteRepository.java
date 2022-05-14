@@ -10,4 +10,6 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
     List<Note> findByUserIdOrderByCreatedAtDesc(int id);
 
     Optional<Note> findByIdAndUserId(Integer id, int id1);
+
+    List<Note> findByUserIdAndTitleContainingOrDataContainingOrderByCreatedAtDesc(int id, String queryTitle, String queryData);
 }
