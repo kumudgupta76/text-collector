@@ -4,7 +4,7 @@ import com.kg.textcollector.model.User;
 import com.kg.textcollector.model.UserDetail;
 import com.kg.textcollector.service.AuthService;
 import com.kg.textcollector.transformer.AuthenticationRequest;
-import com.kg.textcollector.transformer.UserTranformer;
+import com.kg.textcollector.transformer.UserTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,19 +26,19 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
 
-        UserTranformer userTranformer = new UserTranformer(
+        UserTransformer userTransformer = new UserTransformer(
                 authService.login(
                         authenticationRequest.getUsername(),
                         authenticationRequest.getPassword()
                 )
         );
-        return ResponseEntity.ok(userTranformer);
+        return ResponseEntity.ok(userTransformer);
     }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@Valid @RequestBody User user) throws Exception {
-        UserTranformer userTranformer = new UserTranformer(authService.signup(user));
-        return ResponseEntity.ok(userTranformer);
+        UserTransformer userTransformer = new UserTransformer(authService.signup(user));
+        return ResponseEntity.ok(userTransformer);
     }
 
     @GetMapping("/test")

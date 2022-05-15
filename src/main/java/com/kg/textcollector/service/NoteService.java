@@ -19,12 +19,10 @@ public class NoteService {
     private NoteRepository noteRepository;
 
     public Note save(Note note) {
-
-
         return noteRepository.save(note);
     }
 
-    public Note getById(Integer id) {
+    public Note getById(Long id) {
         Optional<UserDetail> user = Auth.getCurrentUserLogin();
         Note note = null;
         if(user.isPresent()) {
@@ -45,7 +43,7 @@ public class NoteService {
     public List<Note> search(String query) {
         Optional<UserDetail> user = Auth.getCurrentUserLogin();
         if(user.isPresent()) {
-            return noteRepository.findByUserIdAndTitleContainingOrDataContainingOrderByCreatedAtDesc(user.get().getId(), query, query);
+            return noteRepository.findByTitleContainingAndUserIdOrDataContainingAndUserIdOrderByCreatedAtDesc(query, user.get().getId(), query, user.get().getId());
         }
         return new ArrayList<>();
     }

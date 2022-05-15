@@ -4,17 +4,17 @@ import com.kg.textcollector.model.UserDetail;
 
 import java.io.Serializable;
 
-public class UserTranformer {
-    private int id;
+public class UserTransformer {
+    private Long id;
     private String username;
     private String name;
     private String email;
     private String token;
 
-    public UserTranformer() {
+    public UserTransformer() {
     }
 
-    public UserTranformer(UserDetail userDetail) {
+    public UserTransformer(UserDetail userDetail) {
         this.id = userDetail.getId();
         this.username = userDetail.getUsername();
         this.name = userDetail.getUsername();
@@ -22,7 +22,7 @@ public class UserTranformer {
         this.token = userDetail.getToken();
     }
 
-    public UserTranformer(int id, String  username, String name, String email, String token) {
+    public UserTransformer(Long id, String  username, String name, String email, String token) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -30,11 +30,11 @@ public class UserTranformer {
         this.token = token;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

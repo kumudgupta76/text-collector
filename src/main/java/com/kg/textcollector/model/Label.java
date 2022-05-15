@@ -1,23 +1,20 @@
 package com.kg.textcollector.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name = "notes")
-public class Note extends Auditable {
+@Table(name = "labels")
+public class Label extends Auditable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String title;
-
-    @Column(columnDefinition = "TEXT")
-    private String data;
+    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -32,11 +29,10 @@ public class Note extends Auditable {
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
-            })
-    @JoinTable(name = "note_label",
-            joinColumns = { @JoinColumn(name = "note_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "label_id", referencedColumnName = "id") })
-    private Set<Label> labels;
+            },
+            mappedBy = "labels")
+    @JsonIgnore
+    private List<Note> notes;
 
     public Long getId() {
         return id;
@@ -46,28 +42,12 @@ public class Note extends Auditable {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String summary) {
-        this.title = summary;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getColor() {
@@ -86,11 +66,20 @@ public class Note extends Auditable {
         this.deleted = deleted;
     }
 
-    public Set<Label> getLabels() {
-        return labels;
+    public List<Note> getNotes() {
+        return notes;
     }
 
-    public void setLabels(Set<Label> labels) {
-        this.labels = labels;
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
+
