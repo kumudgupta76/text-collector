@@ -42,7 +42,7 @@ export default function ({ noteItem, isEditMode }) {
   const [noteinputs, setNotes] = useState(_.get(noteItem, 'notes',[]));
   const [color, setColor] = useState(noteItem.color);
   const [isCheckboxMode, setCheckboxMode] = useState(noteItem.isCheckboxMode);
-  const [labels, setLabels] = useState(noteItem.labels);
+  const [labels, setLabels] = useState(_.get(noteItem, 'labels',[]));
   const [, { setNoteInEditMode }] = useUiStore();
   const [, dispatchTodo] = useTodosStore();
   const [, updateTodoExecute] = useState({});

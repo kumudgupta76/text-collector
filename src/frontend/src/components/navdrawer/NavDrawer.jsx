@@ -6,42 +6,54 @@ import {
   Divider,
   Typography,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
 } from "@material-ui/core";
 import {
   WbIncandescentOutlined as IdeaIcon,
-  LabelOutlined as LabelIcon
+  LabelOutlined as LabelIcon,
+  HourglassEmptyOutlined,
+  Archive,
+  ArchiveOutlined,
 } from "@material-ui/icons";
 import DrawerItem from "./DrawerItem";
 import { useUiStore, useLabelsStore } from "../../storeLocal";
+import { useSelector } from "react-redux";
+import _ from "lodash";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   drawer: {
     width: theme.mixins.drawer.minWidth,
-    flexShrink: 0
+    flexShrink: 0,
   },
   drawerPaper: {
     background: theme.palette.background.default,
     width: theme.mixins.drawer.minWidth,
-    border: 0
+    border: 0,
   },
   sectionTitle: {
     padding: theme.spacing(2, 1, 0, 2),
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
-  toolbar: theme.mixins.toolbar
+  toolbar: theme.mixins.toolbar,
 }));
 
 export default function NavDrawer() {
   const classes = useStyles();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("xs"));
-  const [labelItems] = useLabelsStore();
-  const [{ selectedLabelId, isNavBarOpen }, { toggleNavBar, setSelectedLabelId }] = useUiStore();
+  let [labelItems] = useLabelsStore();
+  const [
+    { selectedLabelId, isNavBarOpen },
+    { toggleNavBar, setSelectedLabelId },
+  ] = useUiStore();
+
+  const localState = useSelector((state) => _.pick(state, ["note"]));
+  labelItems = _.get(localState, "note.labels", []);
+  console.log(labelItems, localState);
 
   const onDrawerItemSelected = (labelId) => {
     setSelectedLabelId(labelId);
-  }
+  };
 
   return (
     <Drawer
@@ -51,7 +63,7 @@ export default function NavDrawer() {
       onClose={toggleNavBar}
       classes={{
         root: classes.drawer,
-        paper: classes.drawerPaper
+        paper: classes.drawerPaper,
       }}
     >
       <div className={classes.toolbar} />
@@ -70,7 +82,7 @@ export default function NavDrawer() {
         </Typography>
       </div>
       <List>
-        {labelItems.map(labelItem => (
+        {labelItems.map((labelItem) => (
           <DrawerItem
             key={labelItem.id}
             text={labelItem.name}
@@ -79,6 +91,10 @@ export default function NavDrawer() {
             onClick={() => onDrawerItemSelected(labelItem.id)}
           />
         ))}
+        {_.isEmpty(labelItems) && <DrawerItem
+            text={"No Labels"}
+            icon={<ArchiveOutlined htmlColor={theme.custom.palette.iconColor} />}
+          />}
       </List>
     </Drawer>
   );

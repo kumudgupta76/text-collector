@@ -22,6 +22,9 @@ import {
 // import { useMutation } from "urql";
 // import { createLabel } from "../../gql";
 import { useLabelsStore } from "../../storeLocal";
+import _ from "lodash";
+import { useDispatch, useSelector } from "react-redux";
+import { createLabel, getLabels } from "../../store/actions/notes";
 
 const useStyles = makeStyles(theme => ({
   popover: {
@@ -85,7 +88,10 @@ export default function LabelPopover({ anchorEl, labels, setLabels, isOpen, onCl
   const theme = useTheme();
   const popoverId = isOpen ? "color-popover" : undefined;
   const [newLabelName, setNewLabelName] = useState("");
-  const [allLabelItems, dispatchLabel] = useLabelsStore();
+  // const [allLabelItems, dispatchLabel] = useLabelsStore();
+  const localState = useSelector(state => _.pick(state, 'note'))
+  const dispatch = useDispatch();
+  let allLabelItems = _.get(localState, 'note.labels', [])
   const filteredLabelItems = allLabelItems.filter(labelItem =>
     newLabelName === "" || labelItem.name.includes(newLabelName)
   );
@@ -100,9 +106,11 @@ export default function LabelPopover({ anchorEl, labels, setLabels, isOpen, onCl
     setLabels(Object.assign([], labels));
   };
   const onCreateTodoClick = () => {
-    createLabelExecute({ name: newLabelName }).then(({ data }) => {
-      dispatchLabel({ type: "CREATED", payload: data.createLabel });
-    });
+    if(newLabelName) {
+      dispatch(createLabel({'name' : newLabelName})).then(res => {
+        dispatch(getLabels());
+      });
+    }
     setNewLabelName("");
   }
   return (

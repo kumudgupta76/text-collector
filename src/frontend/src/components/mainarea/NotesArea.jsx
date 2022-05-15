@@ -2,41 +2,48 @@ import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import TodoCreate from "./TodoCreate";
 import TodoItem from "./TodoItem";
-import { useMediaQuery } from "@material-ui/core";
+import { useMediaQuery, Paper, Typography } from "@material-ui/core";
 import { useUiStore, useTodosStore, useUserStore } from "../../storeLocal";
 import _ from "lodash";
 import { useSelector } from "react-redux";
+import {
+  WbIncandescentOutlined as IdeaIcon,
+  LabelOutlined as LabelIcon,
+  HourglassEmptyOutlined,
+  Archive,
+  ArchiveOutlined,
+} from "@material-ui/icons";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   content: {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: theme.mixins.drawer.minWidth - theme.spacing(2.5),
-    marginRight: -1 * theme.spacing(3)
+    marginRight: -1 * theme.spacing(3),
   },
   contentShift: {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
+      duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0
+    marginLeft: 0,
   },
   todoCreateContainer: {
     display: "flex",
     padding: theme.spacing(4, 0),
-    margin: theme.spacing(0, 1)
+    margin: theme.spacing(0, 1),
   },
   todoCreateWrapper: {
     flex: 1,
     maxWidth: theme.spacing(75),
-    margin: "0 auto"
+    margin: "0 auto",
   },
   todosWrapper: {
     margin: "0 auto",
     columnWidth: theme.spacing(29),
-    columnGap: "0.5rem"
+    columnGap: "0.5rem",
   },
   todoWrapper: {
     width: theme.spacing(29),
@@ -46,9 +53,9 @@ const useStyles = makeStyles(theme => ({
     padding: "0.5rem 0",
     transition: theme.transitions.create("all", {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.standard
-    })
-  }
+      duration: theme.transitions.duration.standard,
+    }),
+  },
 }));
 
 export default function () {
@@ -63,27 +70,27 @@ export default function () {
   const numberOfColumns = is4K
     ? 8
     : isLaptopL
-      ? 4
-      : isLaptop
-        ? 3
-        : isTablet
-          ? 2
-          : 1;
+    ? 4
+    : isLaptop
+    ? 3
+    : isTablet
+    ? 2
+    : 1;
   var width = is4K
     ? "100%"
     : isLaptopL
-      ? "1000px"
-      : isLaptop
-        ? "730px"
-        : isTablet
-          ? "480px"
-          : "100%";
+    ? "1000px"
+    : isLaptop
+    ? "730px"
+    : isTablet
+    ? "480px"
+    : "100%";
   const [{ isListView }] = useUserStore();
   const [{ isNavBarOpen, noteInEditMode, selectedLabelId }] = useUiStore();
   const [notesItems] = useTodosStore();
-  const state = useSelector((state) => _.pick(state, ['note']));
-  const filteredItems = _.get(state, 'note.notes', []).filter(item => {
-    console.log(item)
+  const state = useSelector((state) => _.pick(state, ["note"]));
+  const filteredItems = _.get(state, "note.notes", []).filter((item) => {
+    console.log(item);
     if (selectedLabelId !== "") {
       return item.labels.some((labelItem) => labelItem.id === selectedLabelId);
     } else {
@@ -95,7 +102,7 @@ export default function () {
       ? theme.spacing(75)
       : "100%"
     : width;
-  console.log(filteredItems, notesItems)
+  console.log(filteredItems, notesItems);
   return (
     <main>
       <div
@@ -112,7 +119,7 @@ export default function () {
           className={classes.todosWrapper}
           style={{
             columnCount: isListView ? 1 : numberOfColumns,
-            width: width
+            width: width,
           }}
         >
           {filteredItems.map((noteItem) => {
@@ -129,6 +136,23 @@ export default function () {
               </div>
             );
           })}
+          {_.isEmpty(filteredItems) && (
+            <div
+              className={classes.todoWrapper}
+              style={{ width: isMobile || isListView ? "100%" : null }}
+            >
+              <Paper style={{textAlign:"center"}}>
+                <ArchiveOutlined fontSize="large"></ArchiveOutlined>
+                <Typography
+                  className={classes.textWelcome}
+                  color="textSecondary"
+                  variant="subtitle1"
+                >
+                  No Data
+                </Typography>
+              </Paper>
+            </div>
+          )}
         </div>
       </div>
     </main>

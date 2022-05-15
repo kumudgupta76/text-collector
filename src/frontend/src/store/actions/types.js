@@ -20,3 +20,7 @@ export const GET_NOTE = 'GET_NOTE';
 export const GET_ALL_NOTE = 'GET_ALL_NOTE';
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
+
+export const GET_ALL_LABEL = 'GET_ALL_LABEL';
+export const CREATE_LABEL = 'CREATE_LABEL';
+export const UPDATE_LABEL = 'UPDATE_LABEL';

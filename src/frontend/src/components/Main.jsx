@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Loading from "./util/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { getNoteDetails, getNotes, searchNotes } from "../store/actions/notes";
+import { getLabels, getNoteDetails, getNotes, searchNotes } from "../store/actions/notes";
 // import { useSubscription, useQuery } from "urql";
 // import { subscribeTodos, getTodosAndLabels, subscribeLabels } from "../gql";
 import {
@@ -35,6 +35,10 @@ export default function ({ navigate }) {
       console.log(res);
       setResult({ ...result, data: { ...result.data, todos: res } });
     });
+    dispatch(getLabels()).then((res) => {
+        console.log(res);
+        setResult({ ...result, data: { ...result.data, labels: res } });
+      });
   }, []);
 
   return (

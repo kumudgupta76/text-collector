@@ -1,4 +1,11 @@
-import { GET_USERS, GET_USER, GET_NOTE, GET_ALL_NOTE, CREATE_NOTE } from "../actions/types";
+import {
+  GET_USERS,
+  GET_USER,
+  GET_NOTE,
+  GET_ALL_NOTE,
+  CREATE_NOTE,
+  GET_ALL_LABEL,
+} from "../actions/types";
 
 const initialState = {};
 
@@ -7,12 +14,15 @@ export default function (state = initialState, action) {
 
   switch (type) {
     case GET_NOTE:
-        return { note: payload };
+      return { ...state, note: payload };
     case CREATE_NOTE:
-      return { note: payload };
+      return { ...state, note: payload };
 
     case GET_ALL_NOTE:
-      return { notes: payload };
+      return { ...state, notes: payload };
+
+    case GET_ALL_LABEL:
+      return { ...state, labels: payload };
 
     default:
       return state;

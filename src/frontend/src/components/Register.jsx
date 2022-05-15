@@ -81,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ({ navigate }) {
+export default function ({ }) {
   const classes = useStyles();
 
   const inputProps = {
@@ -98,6 +98,7 @@ export default function ({ navigate }) {
     },
   };
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const localState = useSelector((state) => _.pick(state, 'user', 'auth'));
 
   const [data, setData] = React.useState({
