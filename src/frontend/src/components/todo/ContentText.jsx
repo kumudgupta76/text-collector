@@ -48,7 +48,6 @@ export default function ({ notes, setNotes, isEditMode }) {
     const textParts = text.split("\n").map(text => ({ text: text, isCompleted: false }));
     setNotes(textParts)
   };
-
   return (
     <>
       {isEditMode ? (

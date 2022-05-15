@@ -7,6 +7,7 @@ import ContentTitle from "../todo/ContentTitle";
 import Content from "../todo/Content";
 import { useUiStore, useTodosStore } from "../../storeLocal";
 import _ from "lodash";
+import ContentData from "../todo/ContentData";
 // import { useMutation } from "urql";
 // import { updateTodo } from "../../gql";
 
@@ -39,6 +40,7 @@ export default function ({ noteItem, isEditMode }) {
   const theme = useTheme();
   const [isHovered, setHovered] = useState(false);
   const [title, setTitle] = useState(noteItem.title);
+  const [data, setData] = useState(noteItem.data);
   const [noteinputs, setNotes] = useState(_.get(noteItem, 'notes',[]));
   const [color, setColor] = useState(noteItem.color);
   const [isCheckboxMode, setCheckboxMode] = useState(noteItem.isCheckboxMode);
@@ -91,6 +93,7 @@ export default function ({ noteItem, isEditMode }) {
       <ClickAwayListener onClickAway={isEditMode ? (() => onAfterEdit()) : () => { }}>
         <div onClick={() => setNoteInEditMode(noteItem.id)}>
           <ContentTitle title={title} setTitle={setTitle} isEditMode={isEditMode} />
+          <ContentData data={data} setData={setData} isEditMode={isEditMode} />
           <Content
             notes={noteinputs}
             setNotes={setNotes}
