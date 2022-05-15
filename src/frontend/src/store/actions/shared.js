@@ -3,11 +3,12 @@ import {
   CLEAR_MESSAGE,
   START_LOADING,
   STOP_LOADING,
+  REDIRECT,
 } from "./types";
 
-export const setMessage = (message) => ({
+export const setMessage = (text, type = "info") => ({
   type: SET_MESSAGE,
-  payload: message,
+  payload: { text: text, type: type },
 });
 
 export const clearMessage = () => ({
@@ -20,4 +21,9 @@ export const startLoading = () => ({
 
 export const stopLoading = () => ({
   type: STOP_LOADING,
+});
+
+export const redirect = (path) => ({
+  type: REDIRECT,
+  payload: { path: path },
 });

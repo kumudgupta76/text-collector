@@ -8,7 +8,7 @@ import {
 } from "../actions/types";
 
 import AuthService from "../../services/auth.service";
-import { stopLoading } from "./shared";
+import { setMessage, stopLoading } from "./shared";
 import { message } from "../../util/common";
 
 export const signup = (data) => (dispatch) => {
@@ -22,7 +22,7 @@ export const signup = (data) => (dispatch) => {
       dispatch({
         type: SET_MESSAGE,
         message: "User regiested success full !",
-        message_type : 'SUCCESS'
+        message_type: "SUCCESS",
       });
 
       return Promise.resolve();
@@ -39,7 +39,7 @@ export const signup = (data) => (dispatch) => {
         type: REGISTER_FAIL,
       });
 
-      message({type:'error', title: 'Error', description:text});
+      dispatch(setMessage(text, "error"));
 
       return Promise.reject();
     }
@@ -54,9 +54,9 @@ export const login = (username, password) => (dispatch) => {
         payload: { user: data },
       });
 
-      message({type:'success', title: 'Loggin !', description:"User Logged in successfull !"});
+      dispatch(setMessage("User Logged in successfull !", "success"));
 
-      dispatch(stopLoading())
+      dispatch(stopLoading());
       return Promise.resolve();
     },
     (error) => {
@@ -71,9 +71,9 @@ export const login = (username, password) => (dispatch) => {
         type: LOGIN_FAIL,
       });
 
-      message({type:'error', title: 'Error', description:text});
+      dispatch(setMessage(text, "error"));
 
-      dispatch(stopLoading())
+      dispatch(stopLoading());
       return Promise.reject();
     }
   );
@@ -85,7 +85,6 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT,
   });
-  
+  dispatch(setMessage("Logout successfull!", "success"));
   window.location.reload();
-  message({type:'success', title: 'Logout', description:"Logout successfull !"});
 };
