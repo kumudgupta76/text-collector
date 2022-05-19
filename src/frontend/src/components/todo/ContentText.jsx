@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
   barClose: {},
   inputNoteRoot: {
     ...theme.custom.fontFamily.roboto,
-    padding: theme.spacing(0.5, 2, 1.5, 2)
+    padding: theme.spacing(0.5, 2, 1.5, 2),
+    width: "100%",
   },
   inputNoteInput: {
     fontWeight: 400,

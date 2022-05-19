@@ -5,7 +5,8 @@ import { InputBase, Typography } from "@material-ui/core";
 const useStyles = makeStyles(theme => ({
   inputTitleRoot: {
     ...theme.custom.fontFamily.metropolis,
-    padding: theme.spacing(1.5, 2, 0, 2)
+    padding: theme.spacing(1.5, 2, 0, 2),
+    width: "100%",
   },
   inputTitleInput: {
     fontWeight: 500,

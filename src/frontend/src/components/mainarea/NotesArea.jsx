@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     columnGap: "0.5rem",
   },
   todoWrapper: {
-    width: theme.spacing(29),
+    // width: theme.spacing(29),
     margin: "0 auto",
     breakInside: "avoid",
     pageBreakInside: "avoid",
@@ -68,11 +68,11 @@ export default function () {
   const isLaptopL = useMediaQuery(theme.breakpoints.up("lg"));
   const is4K = useMediaQuery(theme.breakpoints.up("xl"));
   const numberOfColumns = is4K
-    ? 8
-    : isLaptopL
     ? 4
+    : isLaptopL
+    ? 2
     : isLaptop
-    ? 3
+    ? 2
     : isTablet
     ? 2
     : 1;
@@ -139,9 +139,9 @@ export default function () {
           {_.isEmpty(filteredItems) && (
             <div
               className={classes.todoWrapper}
-              style={{ width: isMobile || isListView ? "100%" : null }}
+              style={{ width: "100%", columnCount: 1, display: "inline-block" }}
             >
-              <Paper style={{textAlign:"center"}}>
+              <Paper style={{ textAlign: "center" }}>
                 <ArchiveOutlined fontSize="large"></ArchiveOutlined>
                 <Typography
                   className={classes.textWelcome}
