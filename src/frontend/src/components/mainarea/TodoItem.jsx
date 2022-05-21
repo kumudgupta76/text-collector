@@ -50,7 +50,8 @@ export default function ({
   const [title, setTitle] = useState(noteItem.title);
   const [data, setData] = useState(noteItem.data);
   const [noteinputs, setNotes] = useState(_.get(noteItem, "notes", []));
-  const [color, setColor] = useState(_.get(noteItem, "color", "default"));
+  // const [color, setColor] = useState(_.get(noteItem, "color", "default"));
+  const [color, setColor] = useState("default");
   const [isCheckboxMode, setCheckboxMode] = useState(noteItem.isCheckboxMode);
   const [labels, setLabels] = useState(_.get(noteItem, "labels", []));
   const [, { setNoteInEditMode }] = useUiStore();
@@ -89,7 +90,7 @@ export default function ({
     //   dispatchTodo({ type: "UPDATED", payload: data.updateTodo });
     // });
   };
-
+  
   return (
     <Paper
       onMouseOver={() => setHovered(true)}
