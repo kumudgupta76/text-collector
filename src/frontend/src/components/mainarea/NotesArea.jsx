@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import TodoCreate from "./TodoCreate";
 import TodoItem from "./TodoItem";
@@ -13,6 +13,7 @@ import {
   Archive,
   ArchiveOutlined,
 } from "@material-ui/icons";
+import useUndoableState from "../../custom-hooks/useUndoableState";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -90,7 +91,6 @@ export default function () {
   const [notesItems] = useTodosStore();
   const state = useSelector((state) => _.pick(state, ["note"]));
   const filteredItems = _.get(state, "note.notes", []).filter((item) => {
-    console.log(item);
     if (selectedLabelId !== "") {
       return item.labels.some((labelItem) => labelItem.id === selectedLabelId);
     } else {
@@ -102,7 +102,31 @@ export default function () {
       ? theme.spacing(75)
       : "100%"
     : width;
-  console.log(filteredItems, notesItems);
+  
+  // const [ note, setNote] = useState({
+  //   titile:"",
+  //   data:"",
+  //   color:"",
+  //   labels:[]
+  // })
+
+  const {
+    state: note,
+    setState: setNote,
+    resetState: resetNote,
+    index: docStateIndex,
+    lastIndex: docStateLastIndex,
+    goBack: undoNote,
+    goForward: redoNote,
+  } = useUndoableState({
+    title:"",
+    data:"",
+    color:"",
+    labels:[]
+  });
+
+  const canUndo = docStateIndex > 0;
+  const canRedo = docStateIndex < docStateLastIndex;
   return (
     <main>
       <div
@@ -112,7 +136,14 @@ export default function () {
       >
         <div className={classes.todoCreateContainer}>
           <div className={classes.todoCreateWrapper}>
-            <TodoCreate />
+            <TodoCreate 
+            note={note}
+            setNote={setNote}
+            canRedo={canRedo}
+            canUndo={canUndo}
+            redoNot={redoNote}
+            undoNote={undoNote}
+            />
           </div>
         </div>
         <div
@@ -132,6 +163,12 @@ export default function () {
                 <TodoItem
                   noteItem={noteItem}
                   isEditMode={noteInEditMode === noteItem.id}
+                  note={note}
+                  setNote={setNote}
+                  canRedo={canRedo}
+                  canUndo={canUndo}
+                  redoNot={redoNote}
+                  undoNote={undoNote}
                 />
               </div>
             );

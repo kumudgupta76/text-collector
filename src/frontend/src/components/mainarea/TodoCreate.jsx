@@ -8,23 +8,23 @@ import TodoContent from "../todo/Content";
 // import { createTodo } from "../../gql";
 import { useTodosStore } from "../../storeLocal";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   paperWrapper: {
     transition: theme.transitions.create("all", {
       easing: theme.transitions.easing.easeIn,
-      duration: theme.transitions.duration.short
+      duration: theme.transitions.duration.short,
     }),
     borderColor: theme.custom.palette.itemBorderColor,
     borderWidth: theme.spacing(0.1),
-    borderStyle: "solid"
+    borderStyle: "solid",
   },
   wrapper: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   inputTitleRoot: {
     ...theme.custom.fontFamily.metropolis,
-    padding: theme.spacing(1.25, 2)
+    padding: theme.spacing(1.25, 2),
   },
   inputTitleInput: {
     fontWeight: 500,
@@ -32,27 +32,27 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     lineHeight: "1rem",
     verticalAlign: "middle",
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
   },
   inputNoteRoot: {
     ...theme.custom.fontFamily.roboto,
-    padding: theme.spacing(1.5, 2)
+    padding: theme.spacing(1.5, 2),
   },
   inputNoteInput: {
     fontWeight: 500,
     fontSize: "0.85rem",
     padding: 0,
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
   },
   barWrapper: {
     display: "flex",
     flexDirection: "row",
     padding: theme.spacing(1, 2),
-    justifyContent: "space-between"
-  }
+    justifyContent: "space-between",
+  },
 }));
 
-export default function () {
+export default function ({ canRedo, canUndo, redoNote, undoNote }) {
   const classes = useStyles();
   const theme = useTheme();
   const [, createTodoExecute] = useState({});
@@ -64,10 +64,16 @@ export default function () {
   const [labels, setLabels] = useState([]);
   const [, dispatchTodo] = useTodosStore();
   const onCloseClick = () => {
-    const noteTexts = notes.map(noteItem => noteItem.text);
-    const labelIds = labels.map(labelItem => labelItem.id);
+    const noteTexts = notes.map((noteItem) => noteItem.text);
+    const labelIds = labels.map((labelItem) => labelItem.id);
     if (title || noteTexts.length > 0) {
-      createTodoExecute({ title, notes: noteTexts, labels: labelIds, color, isCheckboxMode }).then(({ data }) => {
+      createTodoExecute({
+        title,
+        notes: noteTexts,
+        labels: labelIds,
+        color,
+        isCheckboxMode,
+      }).then(({ data }) => {
         dispatchTodo({ type: "CREATED", payload: data.createTodo });
       });
     }
@@ -77,7 +83,7 @@ export default function () {
     setCheckboxMode(false);
     setLabels([]);
     setFocussed(false);
-  }
+  };
 
   return (
     <Paper
@@ -94,12 +100,12 @@ export default function () {
           placeholder={isFocussed ? "Title" : "Take a note..."}
           classes={{
             root: isFocussed ? classes.inputTitleRoot : classes.inputNoteRoot,
-            input: classes.inputTitleInput
+            input: classes.inputTitleInput,
           }}
           onFocus={() => setFocussed(true)}
           inputProps={{ "aria-label": "note title" }}
           value={title}
-          onChange={event => setTitle(event.target.value)}
+          onChange={(event) => setTitle(event.target.value)}
         />
         {isFocussed ? (
           <TodoContent

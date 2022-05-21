@@ -42,7 +42,11 @@ const lightMuiTheme = createTheme({
     background: {
       default: "#FFF",
       highlight: "#F1F3F4"
-    }
+    },
+    action: {
+        disabledBackground: '#00002',
+        disabled: '#000000de'
+      }  
   },
   typography: {
     ...fontFamilyRoboto,
@@ -109,7 +113,11 @@ const lightMuiTheme = createTheme({
         grey: "#E8EAED"
       },
       noteColorCheck: "#0007",
-      labelBackground: "#0002"
+      labelBackground: "#0002",
+      action: {
+        disabledBackground: '#00002',
+        disabled: '#000000de'
+      }  
     }
   }
 });

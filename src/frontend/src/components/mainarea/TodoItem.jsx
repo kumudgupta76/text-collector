@@ -8,16 +8,17 @@ import Content from "../todo/Content";
 import { useUiStore, useTodosStore } from "../../storeLocal";
 import _ from "lodash";
 import ContentData from "../todo/ContentData";
+import useUndoableState from "../../custom-hooks/useUndoableState";
 // import { useMutation } from "urql";
 // import { updateTodo } from "../../gql";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     display: "flex",
     flexDirection: "column",
     borderColor: theme.custom.palette.itemBorderColor,
     borderWidth: theme.spacing(0.1),
-    borderStyle: "solid"
+    borderStyle: "solid",
   },
   textTitle: {
     ...theme.custom.fontFamily.metropolis,
@@ -25,49 +26,56 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 500,
     fontSize: "1rem",
     color: theme.palette.text.primary,
-    lineHeight: theme.spacing(0.18)
+    lineHeight: theme.spacing(0.18),
   },
   barWrapper: {
     display: "flex",
     flexDirection: "row",
     padding: theme.spacing(1, 2),
-    justifyContent: "space-between"
-  }
+    justifyContent: "space-between",
+  },
 }));
 
-export default function ({ noteItem, isEditMode }) {
+export default function ({
+  noteItem,
+  isEditMode,
+  canRedo,
+  canUndo,
+  redoNote,
+  undoNote,
+}) {
   const classes = useStyles();
   const theme = useTheme();
   const [isHovered, setHovered] = useState(false);
   const [title, setTitle] = useState(noteItem.title);
   const [data, setData] = useState(noteItem.data);
-  const [noteinputs, setNotes] = useState(_.get(noteItem, 'notes',[]));
-  const [color, setColor] = useState(_.get(noteItem, 'color','default'));
+  const [noteinputs, setNotes] = useState(_.get(noteItem, "notes", []));
+  const [color, setColor] = useState(_.get(noteItem, "color", "default"));
   const [isCheckboxMode, setCheckboxMode] = useState(noteItem.isCheckboxMode);
-  const [labels, setLabels] = useState(_.get(noteItem, 'labels',[]));
+  const [labels, setLabels] = useState(_.get(noteItem, "labels", []));
   const [, { setNoteInEditMode }] = useUiStore();
   const [, dispatchTodo] = useTodosStore();
   const [, updateTodoExecute] = useState({});
 
   const updateColor = (color) => {
     setColor(color);
-    updateTodoItem({ color })
-  }
+    updateTodoItem({ color });
+  };
 
   const updateLabels = (labels) => {
     setLabels(labels);
-    updateTodoItem({ labels: labels.map((label) => label.id) })
-  }
+    updateTodoItem({ labels: labels.map((label) => label.id) });
+  };
 
   const updateCheckboxMode = (isCheckboxMode) => {
     setCheckboxMode(isCheckboxMode);
-    updateTodoItem({ isCheckboxMode })
-  }
+    updateTodoItem({ isCheckboxMode });
+  };
 
   const onAfterEdit = () => {
     updateTodoItem({});
-    setNoteInEditMode("")
-  }
+    setNoteInEditMode("");
+  };
 
   const updateTodoItem = (todoItem) => {
     // updateTodoExecute({
@@ -80,7 +88,7 @@ export default function ({ noteItem, isEditMode }) {
     // }).then(({ data }) => {
     //   dispatchTodo({ type: "UPDATED", payload: data.updateTodo });
     // });
-  }
+  };
 
   return (
     <Paper
@@ -90,33 +98,50 @@ export default function ({ noteItem, isEditMode }) {
       elevation={isHovered || isEditMode ? 2 : 0}
       style={{ backgroundColor: theme.custom.palette.noteBackground[color] }}
     >
-      <ClickAwayListener onClickAway={isEditMode ? (() => onAfterEdit()) : () => { }}>
-        <div onClick={() => setNoteInEditMode(noteItem.id)}>
-          <ContentTitle title={title} setTitle={setTitle} isEditMode={isEditMode} />
-          <ContentData data={data} setData={setData} isEditMode={isEditMode} />
-          <Content
-            notes={noteinputs}
-            setNotes={setNotes}
-            isEditMode={isEditMode}
-            isCheckboxMode={isCheckboxMode}
-          />
-        </div>
+      <ClickAwayListener
+        onClickAway={isEditMode ? () => onAfterEdit() : () => {}}
+      >
+        <>
+          <div onClick={() => setNoteInEditMode(noteItem.id)}>
+            <ContentTitle
+              title={title}
+              setTitle={setTitle}
+              isEditMode={isEditMode}
+            />
+            <ContentData
+              data={data}
+              setData={setData}
+              isEditMode={isEditMode}
+            />
+            <Content
+              notes={noteinputs}
+              setNotes={setNotes}
+              isEditMode={isEditMode}
+              isCheckboxMode={isCheckboxMode}
+            />
+          </div>
+          <LabelsBar labels={labels} />
+          <Fade in={isHovered || isEditMode}>
+            <div className={classes.barWrapper}>
+              <ActionsBar
+                id={noteItem.id}
+                color={color}
+                setColor={updateColor}
+                labels={labels}
+                setLabels={updateLabels}
+                setCheckboxMode={updateCheckboxMode}
+                isCreateMode={false}
+                isCheckboxMode={isCheckboxMode}
+                isEditMode={isEditMode}
+                canRedo={canRedo}
+                canUndo={canUndo}
+                redoNot={redoNote}
+                undoNote={undoNote}
+              />
+            </div>
+          </Fade>
+        </>
       </ClickAwayListener>
-      <LabelsBar labels={labels} />
-      <Fade in={isHovered || isEditMode}>
-        <div className={classes.barWrapper}>
-          <ActionsBar
-            id={noteItem.id}
-            color={color}
-            setColor={updateColor}
-            labels={labels}
-            setLabels={updateLabels}
-            setCheckboxMode={updateCheckboxMode}
-            isCreateMode={false}
-            isCheckboxMode={isCheckboxMode}
-          />
-        </div>
-      </Fade>
     </Paper>
   );
 }

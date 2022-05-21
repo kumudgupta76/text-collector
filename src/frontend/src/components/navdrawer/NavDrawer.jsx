@@ -52,6 +52,8 @@ export default function NavDrawer() {
   console.log(labelItems, localState);
 
   const onDrawerItemSelected = (labelId) => {
+    if(selectedLabelId == labelId)
+        labelId = ""
     setSelectedLabelId(labelId);
   };
 
