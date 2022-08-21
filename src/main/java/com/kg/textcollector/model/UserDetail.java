@@ -36,6 +36,7 @@ public class UserDetail implements  UserDetails, Serializable {
     }
 
     public UserDetail(User user) {
+        this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.password = user.getPassword();
