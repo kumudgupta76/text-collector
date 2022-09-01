@@ -7,6 +7,9 @@ import TodoContent from "../todo/Content";
 // import { useMutation } from "urql";
 // import { createTodo } from "../../gql";
 import { useTodosStore } from "../../storeLocal";
+import { createNote } from "../../store/actions/notes";
+import useUndoableState from "../../custom-hooks/useUndoableState";
+import { useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   paperWrapper: {
@@ -84,6 +87,63 @@ export default function ({ canRedo, canUndo, redoNote, undoNote }) {
     setLabels([]);
     setFocussed(false);
   };
+
+
+  const textOperation = (type) => {
+    const [sel, start, end] = getSel();
+    let startStr = doc.text.substring(0, start);
+    let endStr = doc.text.substring(end);
+    console.log(sel, start, end);
+    switch (type) {
+      case "bold":
+        setDoc({ text: `${startStr}**${sel}**${endStr}` });
+        break;
+      case "italic":
+        setDoc({ text: `${startStr}*${sel}*${endStr}` });
+        break;
+      case "strikethrough":
+
+      default:
+        break;
+    }
+  };
+  const dispatch = useDispatch();
+  const handleSubmit = (title, text) => {
+    let data = {
+      title: title,
+      data: text,
+    };
+    dispatch(createNote(data)).then((res) => {
+      console.log("Component response", res);
+    });
+  }
+
+  const getSel = () => {
+    // obtain the object reference for the <textarea>
+    var txtarea = document.getElementById("mytextarea");
+    // obtain the index of the first selected character
+    var start = txtarea.selectionStart;
+    // obtain the index of the last selected character
+    var end = txtarea.selectionEnd;
+    // obtain the selected text
+    var sel = txtarea.value.substring(start, end);
+    // do something with the selected content
+    return [sel, start, end];
+  };
+
+
+  const {
+    state: doc,
+    setState: setDoc,
+    resetState: resetDoc,
+    index: docStateIndex,
+    lastIndex: docStateLastIndex,
+    goBack: undoDoc,
+    goForward: redoDoc,
+  } = useUndoableState("");
+  // const canUndo = docStateIndex > 0;
+  // const canRedo = docStateIndex < docStateLastIndex;
+
 
   return (
     <Paper

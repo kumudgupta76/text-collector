@@ -45,7 +45,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ({ data, setData, isEditMode }) {
   const classes = useStyles();
-  return !isEditMode ? (
+  return isEditMode ? (
+    <ContentText
+      notes={[{ text: data }]}
+      setNotes={setData}
+      isEditMode={isEditMode}
+    />
+  ) : (
     <div className={classes.textContainer}>
       <ReactMarkdown
         children={data}
@@ -70,11 +76,5 @@ export default function ({ data, setData, isEditMode }) {
         }}
       />
     </div>
-  ) : (
-    <ContentText
-      notes={[{ text: data }]}
-      setNotes={setData}
-      isEditMode={isEditMode}
-    />
   );
 }

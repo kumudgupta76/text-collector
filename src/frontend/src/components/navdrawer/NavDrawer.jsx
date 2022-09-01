@@ -14,6 +14,7 @@ import {
   HourglassEmptyOutlined,
   Archive,
   ArchiveOutlined,
+  ClearAllOutlined,
 } from "@material-ui/icons";
 import DrawerItem from "./DrawerItem";
 import { useUiStore, useLabelsStore } from "../../storeLocal";
@@ -52,8 +53,7 @@ export default function NavDrawer() {
   console.log(labelItems, localState);
 
   const onDrawerItemSelected = (labelId) => {
-    if(selectedLabelId == labelId)
-        labelId = ""
+    if (selectedLabelId == labelId) labelId = "";
     setSelectedLabelId(labelId);
   };
 
@@ -93,10 +93,18 @@ export default function NavDrawer() {
             onClick={() => onDrawerItemSelected(labelItem.id)}
           />
         ))}
-        {_.isEmpty(labelItems) && <DrawerItem
-            text={"No Labels"}
-            icon={<ArchiveOutlined htmlColor={theme.custom.palette.iconColor} />}
-          />}
+        <DrawerItem
+          text={_.isEmpty(labelItems) ? "No Labels" : "All"}
+          isSelected={!(_.isEmpty(labelItems)|| selectedLabelId)}
+          icon={
+            _.isEmpty(labelItems) ? (
+              <ArchiveOutlined htmlColor={theme.custom.palette.iconColor} />
+            ) : (
+              <ClearAllOutlined htmlColor={theme.custom.palette.iconColor} />
+            )
+          }
+          onClick={() => onDrawerItemSelected("")}
+        />
       </List>
     </Drawer>
   );
